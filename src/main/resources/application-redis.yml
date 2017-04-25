@@ -1,0 +1,14 @@
+spring:
+  #缓存配置
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 3000
+    pool:
+      max-active: 8
+      max-idle: 8
+      min-idle: 1
+      max-wait: 1
+
+
+

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hongchen.dao.admin.AdminOperatorLogMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.hongchen.entity.admin.AdminOperatorLog">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="story" property="story" />
+		<result column="after_content" property="afterContent" />
+		<result column="createTime" property="createTime" />
+	</resultMap>
+
+</mapper>

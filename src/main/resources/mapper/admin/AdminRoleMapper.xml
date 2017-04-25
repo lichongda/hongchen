@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hongchen.dao.admin.AdminRoleMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.hongchen.entity.admin.AdminRole">
+		<id column="role_id" property="roleId" />
+		<result column="role_name" property="roleName" />
+		<result column="role_description" property="roleDescription" />
+		<result column="status" property="status" />
+		<result column="create_time" property="createTime" />
+	</resultMap>
+
+	<resultMap id="resultUserRoleMap" type="com.hongchen.entity.admin.AdminRole">
+		<id column="role_id" property="roleId" />
+		<result column="role_name" property="roleName" />
+		<result column="role_description" property="roleDescription" />
+		<result column="status" property="status" />
+		<result column="create_time" property="createTime" />
+		<!--当表之间的关系是一对多时，用 collection-->          <!-- 这里的 column="u_id"是为了传参数到嵌套的查询select="....."-->
+		<collection property="userListserList" ofType="com.hongchen.entity.admin.AdminUser" column="role_id" select="queryUserRole" />
+		<!--<collection property="userListserList" resultMap="AdminUsers" />-->
+	</resultMap>
+
+	<resultMap id="adminUsers" type="com.hongchen.entity.admin.AdminUser">
+		<id column="user_id" property="userId" />
+		<result column="nick_Name" property="nickName" />
+	</resultMap>
+
+	<!--根据角色查询里面用户id-->
+	<select id="queryUserRole" parameterType="java.lang.Integer" resultMap="adminUsers">
+		SELECT u.* from admin_user u, admin_user_role ur
+		WHERE u.user_id = ur.user_id
+		and ur.role_id =#{roleId}
+	</select>
+
+	<!--根据用户id查询角色-->
+	<select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT r.* from  admin_role r, admin_user_role ur
+		WHERE r.role_id = ur.role_id
+		AND  ur.user_id = #{userId}
+	</select>
+
+	<!--查询所有的角色-->
+	<select id="queryRoleAll"  resultMap="resultUserRoleMap">
+		SELECT * from  admin_role r
+	</select>
+
+	<!--查询所有的角色-->
+	<select id="queryRoleAll"  resultMap="resultUserRoleMap">
+		SELECT * from  admin_role r
+	</select>
+
+
+	<!--查询所有的角色-->
+	<select id="selectRoleAll"  resultMap="BaseResultMap">
+		SELECT * from  admin_role r
+	</select>
+
+
+
+
+
+</mapper>

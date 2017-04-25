@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hongchen.dao.admin.AdminPermissionMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.hongchen.entity.admin.AdminPermission">
+		<id column="permission_id" property="permissionId" />
+		<result column="permission_name" property="permissionName" />
+		<result column="permission_resource" property="permissionResource" />
+		<result column="permission_description" property="permissionDescription" />
+		<result column="status" property="status" />
+		<result column="permission_type_id" property="permissionTypeId" />
+		<result column="permission_url" property="permissionUrl" />
+		<result column="permission_parentId" property="permissionParentId" />
+		<result column="create_time" property="createTime" />
+	</resultMap>
+
+	<select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT p.* from admin_permission p, admin_role_permission rp, admin_user_role ur
+		where p.permission_id = rp.permission_id
+		and rp.role_id = ur.role_id
+		<if test="userId !=null ">
+			AND  ur.user_id =#{userId}
+		</if>
+	</select>
+
+	<!--查询父菜单-->
+	<select id="selectPermissionMap" parameterType="map" resultMap="BaseResultMap">
+		SELECT p.* from admin_permission p, admin_role_permission rp, admin_user_role ur
+		where p.permission_id = rp.permission_id
+		and rp.role_id = ur.role_id
+		<if test="typeId !=null ">
+			and p.permission_type_id =#{typeId}
+		</if>
+		<if test="userId !=null ">
+			AND  ur.user_id =#{userId}
+		</if>
+		AND P.permission_parentId =#{parentId}
+	</select>
+
+	<!--查询父菜单-->
+	<select id="selectPermissionAll" parameterType="map" resultMap="BaseResultMap">
+		SELECT p.* from admin_permission p where p.permission_parentId =#{parentId}
+		<if test="typeId !=null ">
+			and p.permission_type_id =#{typeId}
+		</if>
+	</select>
+
+	<select id="selectPermissionRoleId" parameterType="map" resultMap="BaseResultMap">
+		SELECT p.* from admin_permission p, admin_role_permission rp
+		where p.permission_id = rp.permission_id
+		AND P.permission_parentId =#{parentId}
+		<if test="typeId !=null ">
+			and p.permission_type_id =#{typeId}
+		</if>
+		<if test="roleId !=null ">
+			AND  rp.role_id =#{roleId}
+		</if>
+	</select>
+
+    <!--超级管理员无需传入角色-->
+	<select id="selectPermissionSuper" parameterType="map" resultMap="BaseResultMap">
+		SELECT * from admin_permission p
+		where p.permission_parentId =#{parentId}
+		AND p.permission_type_id =#{typeId}
+	</select>
+
+	<select id="selectPermissionRoleIds" parameterType="int" resultMap="BaseResultMap">
+		SELECT p.* from admin_permission p, admin_role_permission rp
+		where p.permission_id = rp.permission_id
+		AND  rp.role_id =#{roleId}
+	</select>
+
+	<select id="querySubPermission" parameterType="map" resultMap="BaseResultMap">
+		SELECT * from admin_permission p
+		where  p.permission_parentId =#{parentId}
+		<if test="typeId !=null ">
+			and p.permission_type_id =#{typeId}
+		</if>
+	</select>
+
+
+	<select id="selectPermissionParentId" parameterType="int" resultMap="BaseResultMap">
+		SELECT *FROM admin_permission
+		WHERE  permission_type_id = 1
+		AND permission_parentId = #{permissionParentId}
+	</select>
+
+	<select id="selectPermissionPageParentId" parameterType="int" resultMap="BaseResultMap">
+		SELECT *FROM admin_permission
+		WHERE  permission_type_id = 1
+		AND permission_parentId = #{permissionParentId}
+	</select>
+
+
+
+
+
+
+
+
+</mapper>

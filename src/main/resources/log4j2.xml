@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF"  >
+    <Properties>
+        <!--<property name="log.path">${admin:catalina.home}/logs/demo</property>-->
+		<!--<property name="log.path">${jetty.home}/logs/demo</property>-->
+		<property name="log.path">/logs/hongchen</property>
+    </Properties>
+    
+ 	<appenders>
+		<Console name="ConsoleAppender" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %c(%L) - %m%n" />
+		</Console>
+		<RollingFile name="FileAppender" fileName="${log.path}/demo.log"
+					 filePattern="${log.path}/$${date:yyyy-MM}/chargerlink-open-%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %c(%L) - %m%n" />
+			<SizeBasedTriggeringPolicy size="100 MB" />
+		</RollingFile>
+	</appenders>
+	
+	<loggers>
+		<logger name="com.hongchen" level="debug" additivity="false">
+			<appender-ref ref="ConsoleAppender" />
+			<appender-ref ref="FileAppender" />
+		</logger>
+
+		<root level="info">
+			<appender-ref ref="ConsoleAppender" />
+			 <appender-ref ref="FileAppender"/>
+		</root>
+
+	</loggers>
+</configuration>

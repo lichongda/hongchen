@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hongchen.dao.admin.AdminUserMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.hongchen.entity.admin.AdminUser">
+		<id column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="nick_name" property="nickName" />
+		<result column="user_password" property="userPassword" />
+		<result column="create_time" property="createTime" />
+		<result column="user_status" property="userStatus" />
+		<result column="department_id" property="departmentId" />
+	</resultMap>
+
+	<resultMap id="resultUserRoleMap" type="com.hongchen.entity.admin.AdminUser">
+		<id column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="nick_name" property="nickName" />
+		<result column="user_password" property="userPassword" />
+		<result column="create_time" property="createTime" />
+		<result column="user_status" property="userStatus" />
+		<result column="department_id" property="departmentId" />
+		<!--当表之间的关系是一对多时，用 collection-->
+		<collection property="roleList" ofType="com.hongchen.entity.admin.AdminRole" column="user_id" select="queryUserRole" />
+	</resultMap>
+
+	<resultMap id="resultRoleMap" type="com.hongchen.entity.admin.AdminRole">
+		<id column="role_id" property="roleId" />
+		<result column="role_name" property="roleName" />
+		<result column="role_description" property="roleDescription" />
+		<result column="status" property="status" />
+		<result column="create_time" property="createTime" />
+	</resultMap>
+
+	<!--根据用户ID查询里面的角色-->
+	<select id="queryUserRole" parameterType="java.lang.Integer" resultMap="resultRoleMap">
+		SELECT r.* from admin_role r, admin_user_role ur
+		WHERE r.role_id = ur.role_id
+		AND ur.user_id = #{userId}
+	</select>
+
+	<select id="selectAdminUserAll"    resultMap="resultUserRoleMap">
+		SELECT * FROM admin_user
+	</select>
+
+
+	<select id="selectAdminUserList"    resultMap="BaseResultMap">
+		SELECT * FROM admin_user
+	</select>
+
+</mapper>

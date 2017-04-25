@@ -1,0 +1,49 @@
+spring:
+  aop:
+    proxy-target-class: true
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hongchen?characterEncoding=UTF-8
+    username: root
+    password: 123456
+    initialSize: 5
+    minIdle: 5
+    maxWait: 60000
+    maxActive: 20
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+
+  profiles:
+    active: dev
+    include: redis
+
+
+
+
+ # 合并多个DruidDataSource的监控数据
+ #spring.datasource.useGlobalDataSourceStat=true
+server:
+  port: 8080
+  #context-path: /hongchen
+
+logging:
+  config: classpath:log4j2.xml
+mybatis:
+  mapper-locations: classpath:/mapper/**/*Mapper.xml
+  type-aliases-package: com.lichongda.entity
+
+
+
+
+
+
