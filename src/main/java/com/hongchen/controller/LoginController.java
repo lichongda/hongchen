@@ -49,7 +49,7 @@ public class LoginController {
         System.out.print("userName= " + userName+ "  passwordssss== " + password);
         ResponseBase<UserCredentials> responseMessage = new ResponseBase<>();
         if(userName == null ){
-            return  responseMessage.error( "帐号或密码不能为空s");
+            return  responseMessage.error( "帐号或密码不能为空aaa");
         }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("user_name", userName);
