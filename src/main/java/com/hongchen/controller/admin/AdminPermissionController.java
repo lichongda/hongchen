@@ -77,7 +77,7 @@ public class AdminPermissionController {
     @GetMapping("query/adminPermissionButton")
     public ResponseBase<?>  queryPermissionButton(Integer roleId,  Integer permissionId){
         ResponseBase<List<AdminPermission>> responseMessage = new ResponseBase<>();
-        //是否 显示按钮
+        //是否显示按钮
         List<AdminPermission> permissionButtons =  aminPermissionService.refreshaAminPermission(roleId, permissionId);
         responseMessage.setData(permissionButtons);
         return responseMessage;
