@@ -30,4 +30,5 @@ public interface IAdminUserService extends IService<AdminUser>{
     int insert(UserVo userVo);
     int update(UserVo userVo);
     int delete(Integer userId);
+    AdminUser queryUserId(Integer id);
 }

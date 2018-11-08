@@ -107,7 +107,7 @@ public class AdminUserController {
 
     @GetMapping("query/adminUser")
     @RequiresPermissions("user:query")
-    public ResponseBase<?> queryAdminUser(){
+    public ResponseBase<?> queryAdminUser(AdminUser adminuser){
         ResponseBase<PublicReturnVo> responseMessage = new ResponseBase<>();
         Page<AdminUser>page = WebUtil.getPage(5);
         PublicReturnVo pageResult =  adminUserService.selectAdminUserAll(page);

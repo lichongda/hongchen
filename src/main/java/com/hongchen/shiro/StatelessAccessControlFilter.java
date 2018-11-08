@@ -83,7 +83,7 @@ public class StatelessAccessControlFilter extends AccessControlFilter{
        String password = request.getParameter("userPassword");
        String requestURL = getPathWithinApplication(request);//获取url
        Boolean isLogin = false;
-        System.out.println( "returnUrl:" + requestURL);
+       System.out.println( "returnUrl:" + requestURL);
         //3、客户端请求的参数列表
        Map<String, String[]> params = new HashMap<String, String[]>(request.getParameterMap());
        params.remove("digest");//为什么要移除呢？签名或者消息摘要算法的时候不能包含digest.

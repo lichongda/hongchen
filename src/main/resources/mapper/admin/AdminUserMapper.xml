@@ -49,4 +49,10 @@
 		SELECT * FROM admin_user
 	</select>
 
+	<!--根据用户ID查询里面的角色-->
+	<select id="queryUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT ur.* from admin_user ur
+		WHERE   ur.user_id = #{userId}
+	</select>
+
 </mapper>

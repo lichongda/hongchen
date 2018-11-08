@@ -58,6 +58,7 @@ public class LoginController {
         AssertUtil.notEmpty(userList, "账号或密码错误");
         UserCredentials userCredentials = new UserCredentials();
         userCredentials.setUserId(userList.get(0).getUserId());
+
         List<AdminRole> roleList = adminRoleService.selectByUserId(userList.get(0).getUserId());
         if(roleList != null && roleList.size() > 0){
             userCredentials.setRoleId(roleList.get(0).getRoleId());

@@ -51,7 +51,7 @@
 			</if>
 			<if
 					test="scheduleJobGroupDescription != null and scheduleJobGroupDescription != ''">
-				AND schedule_job_description like
+				AND schedule_job_description
 				CONCAT('%',#{scheduleJobGroupDescription},'%')
 			</if>
 			<if test="status != null">

@@ -32,4 +32,6 @@ public interface AdminUserMapper  extends BaseMapper<AdminUser> {
     AdminUser  findByUsername(String name);
 
     List<AdminUser> selectAdminUserAll(Pagination page);
+
+    AdminUser queryUserId(Integer id);
 }

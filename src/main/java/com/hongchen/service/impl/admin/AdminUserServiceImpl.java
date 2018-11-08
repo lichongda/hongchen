@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.hongchen.dao.admin.AdminUserMapper;
+import com.hongchen.dao.quartz.QuartzSchedulejobMapper;
 import com.hongchen.entity.admin.AdminUser;
 import com.hongchen.entity.admin.AdminUserRole;
 import com.hongchen.service.admin.IAdminUserRoleService;
@@ -36,6 +37,7 @@ public class AdminUserServiceImpl  extends ServiceImpl<AdminUserMapper, AdminUse
     private static final Logger logger = LoggerFactory.getLogger(AdminUserServiceImpl.class);
     @Autowired
     private IAdminUserRoleService adminUserRoleService;
+
 
     public PublicReturnVo selectAdminUserList(Page<AdminUser> page) {
         PublicReturnVo<List<AdminUser>> vo = null;
@@ -116,5 +118,10 @@ public class AdminUserServiceImpl  extends ServiceImpl<AdminUserMapper, AdminUse
         adminUserRoleService.deleteUserId(userId);
        int result = baseMapper.deleteById(userId);
         return result;
+    }
+
+    @Override
+    public AdminUser queryUserId(Integer id) {
+        return baseMapper.queryUserId(id);
     }
 }

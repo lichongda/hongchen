@@ -4,7 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.hongchen.annotation.NoOperator;
 import com.hongchen.annotation.Operator;
 import com.hongchen.entity.admin.AdminOperatorLog;
+import com.hongchen.entity.admin.AdminUser;
 import com.hongchen.service.admin.IAdminOperatorLogService;
+import com.hongchen.service.admin.IAdminUserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
@@ -28,6 +32,9 @@ public class OperationInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(OperationInterceptor.class);
     @Autowired
     private IAdminOperatorLogService adminOperatorLogService;
+
+    @Autowired
+    private IAdminUserService adminUserService;
     //execution(* *(..))表示匹配所有方法
     //execution(public * com.hongchen.service.UserService.*(..))  表示匹配com.hongchen.service.UserService中所有的公有方法
     //execution(* com.hongchen.service..*.*(..)) 表示匹配com.hongchen.service包及其子包下的所有方法
@@ -95,8 +102,10 @@ public class OperationInterceptor {
             }else{
                 _operator.setStory(method.getAnnotation(Operator.class).story());
             }
-            _operator.setUserId(1);
-            _operator.setUserName("李崇达");
+            Integer userId = (Integer)SecurityUtils.getSubject().getPrincipal();
+            AdminUser adminUser = adminUserService.queryUserId(userId);
+            _operator.setUserId(adminUser.getUserId());
+            _operator.setUserName(adminUser.getUserName());
             adminOperatorLogService.insert(_operator);
             logger.info("logger" +_operator.toString());
         }
