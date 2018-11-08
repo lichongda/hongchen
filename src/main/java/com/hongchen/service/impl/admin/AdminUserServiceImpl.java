@@ -58,6 +58,7 @@ public class AdminUserServiceImpl  extends ServiceImpl<AdminUserMapper, AdminUse
     }
 
 
+
     @Override
     public int insert(UserVo userVo) {
         AdminUser adminUser = new AdminUser();
