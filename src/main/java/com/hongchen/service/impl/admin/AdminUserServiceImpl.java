@@ -1,15 +1,12 @@
 package com.hongchen.service.impl.admin;
 
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.hongchen.dao.admin.AdminUserMapper;
-import com.hongchen.dao.quartz.QuartzSchedulejobMapper;
 import com.hongchen.entity.admin.AdminUser;
 import com.hongchen.entity.admin.AdminUserRole;
 import com.hongchen.service.admin.IAdminUserRoleService;
 import com.hongchen.service.admin.IAdminUserService;
-import com.hongchen.vo.Pages;
 import com.hongchen.vo.PublicReturnVo;
 import com.hongchen.vo.admin.UserVo;
 import org.apache.commons.lang.StringUtils;
@@ -20,8 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.DoubleSummaryStatistics;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -63,7 +58,6 @@ public class AdminUserServiceImpl  extends ServiceImpl<AdminUserMapper, AdminUse
     }
 
     @Override
-
     public int insert(UserVo userVo) {
         AdminUser adminUser = new AdminUser();
         adminUser.setUserName(userVo.getUserName());
