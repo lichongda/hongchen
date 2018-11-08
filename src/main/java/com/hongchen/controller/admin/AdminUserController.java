@@ -2,10 +2,8 @@ package com.hongchen.controller.admin;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.hongchen.controller.base.ResponseBase;
-import com.hongchen.entity.admin.AdminPermission;
 import com.hongchen.entity.admin.AdminRole;
 import com.hongchen.entity.admin.AdminUser;
-import com.hongchen.service.LogService;
 import com.hongchen.service.admin.IAdminPermissionService;
 import com.hongchen.service.admin.IAdminRoleService;
 import com.hongchen.service.admin.IAdminUserService;
@@ -18,7 +16,6 @@ import com.hongchen.vo.admin.UserVo;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -107,14 +103,13 @@ public class AdminUserController {
 
     @GetMapping("query/adminUser")
     @RequiresPermissions("user:query")
-    public ResponseBase<?> queryAdminUser(AdminUser adminuser){
+    public ResponseBase<?> queryAdminUser(String userName){
         ResponseBase<PublicReturnVo> responseMessage = new ResponseBase<>();
         Page<AdminUser>page = WebUtil.getPage(5);
-        PublicReturnVo pageResult =  adminUserService.selectAdminUserAll(page);
+        PublicReturnVo pageResult =  adminUserService.selectAdminUserAll(page,userName);
         responseMessage.setData(pageResult);
         return responseMessage;
     }
-
 
 
 

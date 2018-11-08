@@ -3,7 +3,6 @@ package com.hongchen;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
@@ -14,12 +13,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.boot.SpringApplication.run;
+
 @EnableTransactionManagement
 @SpringBootApplication
 @MapperScan("com.hongchen.dao")//配置mybatis包扫描
 public class HongchenApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(HongchenApplication.class, args);
+		run(HongchenApplication.class, args);
 	}
 
 	@Bean

@@ -6,7 +6,6 @@ import com.hongchen.validator.Second;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**

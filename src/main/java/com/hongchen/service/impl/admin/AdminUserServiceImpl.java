@@ -46,15 +46,18 @@ public class AdminUserServiceImpl  extends ServiceImpl<AdminUserMapper, AdminUse
         return vo;
     }
 
-    @Override
-    public AdminUser findByUsername(String name) {
-        return  baseMapper.findByUsername(name);
-    }
+
 
     @Override
-    public PublicReturnVo selectAdminUserAll(Page<AdminUser> page) {
+    public PublicReturnVo selectAdminUserAll(Page<AdminUser> page,String userName) {
         PublicReturnVo<List<AdminUser>> vo = null;
-       page.setRecords(baseMapper.selectAdminUserAll(page));
+        List<AdminUser> adminUsersList=null;
+        if(StringUtils.isBlank(userName)){
+            adminUsersList=baseMapper.selectAdminUserAll(page);
+        }else{
+            adminUsersList=baseMapper.findByUsername(page,userName);
+        }
+        page.setRecords(adminUsersList);
         vo = PublicReturnVo.conversionPublicReturn(page);
         return vo;
     }
@@ -116,7 +119,7 @@ public class AdminUserServiceImpl  extends ServiceImpl<AdminUserMapper, AdminUse
     @Override
     public int delete(Integer userId) {
         adminUserRoleService.deleteUserId(userId);
-       int result = baseMapper.deleteById(userId);
+        int result = baseMapper.deleteById(userId);
         return result;
     }
 

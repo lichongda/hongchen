@@ -29,7 +29,7 @@ public interface AdminUserMapper  extends BaseMapper<AdminUser> {
     /*
     * 根据用户名查询
     * */
-    AdminUser  findByUsername(String name);
+    List<AdminUser>  findByUsername(Pagination page,String userName);
 
     List<AdminUser> selectAdminUserAll(Pagination page);
 
